@@ -1,0 +1,45 @@
+.hide {
+display:none!important;
+}
+#top,
+.hidden {
+left:-999em;
+position:absolute;
+top:auto;
+}
+#top:focus {
+position:static;
+font-size:1.5em;
+background-color:#FFFFD5;
+display:block;
+font-weight:bold;
+color:#000;
+padding:2px 15px 5px;
+}
+body {
+width:960px;
+margin:0 auto;
+font-family:Arial, Helvetica, sans-serif;
+}
+#content h1 {
+font-family:Georgia, "Times New Roman", Times, serif;
+font-size:3em;
+margin-bottom:1.2em;
+}
+#content p,
+#content li  {
+font-size:1.4em;
+line-height:133%;
+}
+#content li {
+margin-bottom:0.25em;
+}
+#content p,
+#content ul,
+#content ol {
+margin-bottom:1em;
+}
+#content ol {
+padding-left:30px;
+list-style-type:decimal;
+}
