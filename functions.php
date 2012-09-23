@@ -57,7 +57,9 @@ function register_dokumento_styles() {
 }
 add_action( 'init', 'register_dokumento_styles' );
 
-//Register Custom Post Types
+
+
+/* Register Custom Post Types
 function register_dokumento_post_types() {
   $common_args = array(
     'public' => true,
@@ -98,5 +100,30 @@ function register_dokumento_post_types() {
   register_post_type('code', $args);
 }
 add_action( 'init', 'register_dokumento_post_types' );
+
+*/
+
+function register_default_dokumento_post_type() {
+	$args = array(
+    'public' => true,
+    'publicly_queryable' => true,
+    'show_ui' => true, 
+    'show_in_menu' => true, 
+    'query_var' => true,
+    'rewrite' => true,
+    'capability_type' => 'post',
+    'has_archive' => true, 
+    'hierarchical' => false,
+    'taxonomies' => array('post_tag'),
+    'supports' => array( 'title', 'editor', 'revisions' ),
+	'menu_position' => 5,
+	'labels' => array(
+    	'name' => 'Documentation',
+    	'singular_name' => 'Documentation',
+  	)
+  );
+  register_post_type('documentation', $args);
+}
+add_action( 'init', 'register_default_dokumento_post_type' );
 
 ?>
