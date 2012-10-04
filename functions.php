@@ -126,4 +126,37 @@ function register_default_dokumento_post_type() {
 }
 add_action( 'init', 'register_default_dokumento_post_type' );
 
+//Tags
+function get_dokumento_tags() {
+	global $post;
+	$args = array(
+		'orderby' => 'count'
+	);
+	
+	$tags = wp_get_object_terms( $post->ID, array('post_tag'), $args );
+	$new_tags = array();
+	foreach( $tags as $tag ):
+		if( $tag->count > 1 ) {
+			$new_tags[] = $tag;
+		}
+	endforeach;
+
+	return $new_tags;
+}
+function dokumento_tags() {
+	$tags = get_dokumento_tags();
+	
+	if( $tags ):
+	?>
+	<div id="tags">
+		<h2>Tags</h2>
+		<ul>
+	<?php foreach( $tags as $tag ): ?>
+			<li><a href="<?php echo get_term_link( $tag, 'post_tag' ); ?>"><?php echo $tag->name; ?></a></li>
+	<?php endforeach;?>
+		</ul>
+	<?php
+	endif;
+}
+
 ?>

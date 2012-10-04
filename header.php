@@ -33,5 +33,5 @@ if(isset($_GET['grid'])) {
 <body <?php body_class(); ?>>
 <a id="top" href="#content">Skip to Content</a>
 <div id="header">
-
+	<h1><a href="<?php echo home_url(); ?>"><?php bloginfo('name'); ?></a></h1>
 </div>
