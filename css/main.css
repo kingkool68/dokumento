@@ -67,6 +67,9 @@ li  {
 font-size:1.4em;
 line-height:133%;
 }
+li li {
+font-size:1em;
+}
 li {
 margin-bottom:0.25em;
 }
