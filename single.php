@@ -2,12 +2,12 @@
 
 <div id="content" role="main">
 	<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-		<h1><?php the_title(); ?></h1>
+		<h1 class="page-title"><?php the_title(); ?></h1>
 		<?php the_content(); ?>
-		<div class="meta">
-			<p>Updated <?= human_time_diff( strtotime($post->post_modified_gmt) ); ?> ago by <?php the_modified_author(); ?>.</p>
-		</div>
 		<?php dokumento_tags(); ?>
+		<div class="meta">
+			<p><span title="<?php esc_attr_e( date( get_option('date_format') . ' ' . get_option('time_format'), strtotime($post->post_modified)) ) ?>">Updated <?php echo dokumento_human_time_diff( 2, strtotime($post->post_modified) ); ?> ago</span> by <?php the_modified_author(); ?>.</p>
+		</div>
 	<?php endwhile; else: ?>
 	
 	<?php endif; ?>
