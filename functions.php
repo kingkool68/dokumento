@@ -124,7 +124,7 @@ function register_default_dokumento_post_type() {
   );
   register_post_type('documentation', $args);
 }
-add_action( 'init', 'register_default_dokumento_post_type' );
+//add_action( 'init', 'register_default_dokumento_post_type' );
 
 //Tags
 function get_dokumento_tags() {
@@ -144,6 +144,7 @@ function get_dokumento_tags() {
 	return $new_tags;
 }
 function dokumento_tags() {
+	global $post;
 	$tags = get_dokumento_tags();
 	
 	if( $tags ):
@@ -151,12 +152,57 @@ function dokumento_tags() {
 	<div id="tags">
 		<h2>Tags</h2>
 		<ul>
-	<?php foreach( $tags as $tag ): ?>
-			<li><a href="<?php echo get_term_link( $tag, 'post_tag' ); ?>"><?php echo $tag->name; ?></a></li>
+	<?php foreach( $tags as $tag ):
+		if($post->post_type != 'post') {
+			$permalink = get_site_url() . '/' . $post->post_type . '/tag/' . $tag->slug . '/';
+		} else {
+			$permalink = get_term_link( $tag, 'post_tag' );
+		}
+	?>
+			<li><a href="<?php echo $permalink; ?>"><?php echo $tag->name; ?></a></li>
 	<?php endforeach;?>
 		</ul>
+	</div>
 	<?php
 	endif;
 }
 
-?>
+//My own human time diff function from http://www.php.net/manual/en/ref.datetime.php#90989
+function dokumento_human_time_diff( $levels = 2, $from, $to = false ) {
+	if( !$to ) {
+		$to = time();
+	}
+	$blocks = array(
+		array('name'=>'year','amount'	=>	60*60*24*365	),
+		array('name'=>'month','amount'	=>	60*60*24*31	),
+		array('name'=>'week','amount'	=>	60*60*24*7	),
+		array('name'=>'day','amount'	=>	60*60*24	),
+		array('name'=>'hour','amount'	=>	60*60		),
+		array('name'=>'minute','amount'	=>	60		),
+		array('name'=>'second','amount'	=>	1		)
+	);
+   
+	$diff = abs($from-$to);
+   
+	$current_level = 1;
+	$result = array();
+	foreach($blocks as $block) {
+		if ($current_level > $levels) {
+			break;
+		}
+		
+		if ($diff/$block['amount'] >= 1) {
+			$amount = floor($diff/$block['amount']);
+			$plural='';
+			if ($amount > 1) {
+				$plural='s';
+			} 
+			
+			$result[] = $amount.' '.$block['name'].$plural;
+			$diff -= $amount*$block['amount'];
+			$current_level++;
+		}
+	}
+	
+	return implode(' ',$result);
+}
