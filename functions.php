@@ -14,18 +14,6 @@ if ( function_exists( 'register_nav_menus' ) ) {
 	);
 }
 	
-// Removes Trackbacks from the comment cout
-add_filter('get_comments_number', 'comment_count', 0);
-function comment_count( $count ) {
-	if ( ! is_admin() ) {
-		global $id;
-		$comments_by_type = &separate_comments(get_comments('status=approve&post_id=' . $id));
-		return count($comments_by_type['comment']);
-	} else {
-		return $count;
-	}
-}
-	
 // category id in body and post class
 function category_id_class($classes) {
 	global $post;
@@ -49,13 +37,6 @@ function replace_pluses_with_spaces($s) {
 	return str_replace('+', ' ', $s);
 }
 add_filter('get_search_query', 'replace_pluses_with_spaces');
-
-//Register CSS
-function register_dokumento_styles() {
-	wp_register_style( 'reset', get_template_directory_uri() . '/css/reset.css', false, NULL, 'all' );
-	wp_register_style( 'main', get_template_directory_uri() . '/css/main.css', array('reset'), NULL, 'all' );
-}
-add_action( 'init', 'register_dokumento_styles' );
 
 
 
@@ -206,3 +187,7 @@ function dokumento_human_time_diff( $levels = 2, $from, $to = false ) {
 	
 	return implode(' ',$result);
 }
+
+//Include functions
+$dokumento_functions_path = TEMPLATEPATH . '/functions';
+include  $dokumento_functions_path . '/css-js.php';

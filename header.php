@@ -18,7 +18,6 @@
 </title>
 <meta charset="<?php bloginfo( 'charset' ); ?>" >
 <link rel="index" title="<?php bloginfo( 'name' ); ?>" href="<?php echo get_option('home'); ?>/" >
-<?php wp_enqueue_style('main'); ?>
 <?php wp_head(); ?>
 </head>
 <?php
@@ -32,9 +31,13 @@ if(isset($_GET['grid'])) {
 ?>
 <body <?php body_class(); ?>>
 <a id="top" href="#content">Skip to Content</a>
-<div id="header">
-	<h1 class="site-title"><a href="<?php echo get_site_url(); ?>"><?php bloginfo('name'); ?></a></h1>
-	<?php if( $tagline = get_bloginfo('description') ): ?>
-		<p class="tagline"><?php echo $tagline; ?></p>
-	<?php endif; ?>
-</div>
+<header>
+	<div class="holder">
+		<h1 class="site-title"><a href="<?php echo get_site_url(); ?>"><?php bloginfo('name'); ?></a></h1>
+		<?php if( $tagline = get_bloginfo('description') ): ?>
+			<p class="tagline"><?php echo $tagline; ?></p>
+		<?php endif; ?>
+	</div>
+</header>
+
+<div class="holder">
