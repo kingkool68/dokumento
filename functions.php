@@ -191,3 +191,4 @@ function dokumento_human_time_diff( $levels = 2, $from, $to = false ) {
 //Include functions
 $dokumento_functions_path = TEMPLATEPATH . '/functions';
 include  $dokumento_functions_path . '/css-js.php';
+include  $dokumento_functions_path . '/toc.php';
