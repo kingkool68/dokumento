@@ -6,8 +6,13 @@ class Dokumento_TOC {
 	
 	public $headings = NULL;
 	
+	public $find = array();
+	
+	public $replace = array();
+	
 	//Methods
 	private function __construct() {
+		add_action( 'the_post', array( $this, 'the_post' ) );
 		add_filter( 'the_content', array( $this, 'the_content' ), 100 ); // run after shortcodes are interpretted (level 10)
 	}
 	
@@ -20,19 +25,28 @@ class Dokumento_TOC {
 		return self::$instance;
 	}
 	
+	public function the_post( $post ) {
+		if( !is_single() ) {
+			return $post;
+		}
+		
+		$find = $replace = array();
+		$this->get_headings( $post->post_content );
+		
+		return $post;
+	}
+	
 	public function the_content( $the_content ) {
 		if( !is_single() ) {
 			return $the_content;
 		}
 		
-		$find = $replace = array();
-		$items = $this->get_headings( $find, $replace, $the_content );
-		$the_content = $this->mb_find_replace($find, $replace, $the_content);
+		$the_content = $this->mb_find_replace($the_content);
 		
 		return $the_content;
 	}
 	
-	public function get_headings( &$find, &$replace, $text ) {
+	public function get_headings( $text ) {
 		$matches = array();
 		if ( preg_match_all('/(<h([1-6]{1})[^>]*>).*<\/h\2>/msuU', $text, $matches, PREG_SET_ORDER) ) {
 			/*
@@ -45,14 +59,14 @@ class Dokumento_TOC {
 			for ($i = 0; $i < count($matches); $i++) {
 				// get anchor and add to find and replace arrays
 				$anchor = $this->url_anchor_target( $matches[$i][0] );
-				$find[] = $matches[$i][0];
-				$replace[] = str_replace(
+				$this->find[] = $matches[$i][0];
+				$this->replace[] = str_replace(
 					array(
 						$matches[$i][1],				// start of heading
 						'</h' . $matches[$i][2] . '>'	// end of heading
 					),
 					array(
-						$matches[$i][1] . '<a id="' . $anchor . '" href="#' . $anchor .'">#</a>',
+						$matches[$i][1] . '<a id="' . $anchor . '" href="#' . $anchor .'" class="toc-anchor">#</a>',
 						'</h' . $matches[$i][2] . '>'
 					),
 					$matches[$i][0]
@@ -84,82 +98,41 @@ class Dokumento_TOC {
 			
 			$return = sanitize_file_name($return);
 			
-			// remove &amp;
-			//$return = str_replace( '&amp;', '', $return );
-			
-			// remove non alphanumeric chars
-			//$return = preg_replace( '/[^a-zA-Z0-9 \-_]*/', '', $return );
-			
-			// convert spaces to _
-			/*
-			$return = str_replace(
-				array('  ', ' '),
-				'_',
-				$return
-			);
-			
-			*/
-			// remove trailing - and _
-			//$return = rtrim( $return, '-_' );
-			
-			// lowercase everything?
-			//if ( $this->options['lowercase'] ) $return = strtolower($return);
-
-			// if blank, then prepend with the fragment prefix
-			// blank anchors normally appear on sites that don't use the latin charset
-			/*
-			if ( !$return ) {
-				$return = ( $this->options['fragment_prefix'] ) ? $this->options['fragment_prefix'] : '_';
-			}
-			*/
-			
-			// hyphenate?
-			/*
-			if ( $this->options['hyphenate'] ) {
-				$return = str_replace('_', '-', $return);
-				$return = str_replace('--', '-', $return);
-			}
-			*/
 		}
-		
-		/*
-		if ( array_key_exists($return, $this->collision_collector) ) {
-			$this->collision_collector[$return]++;
-			$return .= '-' . $this->collision_collector[$return];
-		}
-		else
-			$this->collision_collector[$return] = 1;
-		*/
 		
 		return $return;
 	}
 	
-	private function mb_find_replace( &$find = false, &$replace = false, &$string = '' ) {
-		if ( is_array($find) && is_array($replace) && $string ) {
-			// check if multibyte strings are supported
-			if ( function_exists( 'mb_strpos' ) ) {
-				for ($i = 0; $i < count($find); $i++) {
-					$string = 
-						mb_substr( $string, 0, mb_strpos($string, $find[$i]) ) .	// everything befor $find
-						$replace[$i] .												// its replacement
-						mb_substr( $string, mb_strpos($string, $find[$i]) + mb_strlen($find[$i]) )	// everything after $find
-					;
-				}
+	private function mb_find_replace( &$string = '' ) {
+		// check if multibyte strings are supported
+		
+		$find = $this->find;
+		$replace = $this->replace;
+		
+		if ( function_exists( 'mb_strpos' ) ) {
+			for ($i = 0; $i < count($find); $i++) {
+				$string = 
+					mb_substr( $string, 0, mb_strpos($string, $find[$i]) ) .	// everything befor $find
+					$replace[$i] .												// its replacement
+					mb_substr( $string, mb_strpos($string, $find[$i]) + mb_strlen($find[$i]) )	// everything after $find
+				;
 			}
-			else {
-				for ($i = 0; $i < count($find); $i++) {
-					$string = substr_replace(
-						$string,
-						$replace[$i],
-						strpos($string, $find[$i]),
-						strlen($find[$i])
-					);
-				}
+		}
+		else {
+			for ($i = 0; $i < count($find); $i++) {
+				$string = substr_replace(
+					$string,
+					$replace[$i],
+					strpos($string, $find[$i]),
+					strlen($find[$i])
+				);
 			}
 		}
 		
 		return $string;
 	}
+
+//End Dokumento_TOC Class
 }
 
 add_action( 'after_setup_theme', array( 'Dokumento_TOC', 'get_instance' ) );
@@ -176,37 +149,68 @@ function dokumento_toc() {
 		return;
 	}
 	
-	$count = 1;
 	
 	$output = '<div class="dokumento-toc">';
-	$output = '<h2>Contents</h2>';
-	$output .= '<ul>';
-	foreach( $headers as $header ) {
-		
-		if( isset( $headers[$count] ) ) {
-			$next_header = $headers[$count];
-		} else {
-			$next_header = (object) array(
-				'level' => 0
-			);
-		}
-		
-		$start = '<li class="level-' . $header->level . '"><a href="#' . $header->anchor . '">' . $header->text . '</a>';
-		$end = '</li>';
-		
-		if( $next_header->level > $header->level ) {
-			$start .= '<ul>';
-		} else if( $next_header->level < $header->level ) {
-			$end = '</ul>' . $end;
-		}
-		
-		$current_heading_level = $header->level;
-		$output .= $start . $end;
-		
-		$count++;
+	$output .= '<h2>Contents</h2>';
+	$output .= '<ol>';
+	
+	$current_depth = 100;	// headings can't be larger than h6 but 100 as a default to be sure
+	$numbered_items = array();
+	$numbered_items_min = null;
+	
+	// find the minimum heading to establish our baseline
+	foreach($headers as $header) {
+		if ( $current_depth > $header->level )
+			$current_depth = $header->level;
 	}
-	$output .= '</ul>';
+	
+	$numbered_items[$current_depth] = 0;
+	$numbered_items_min = $current_depth;
+	
+	foreach($headers as $i => $header) {
+		$the_next_header = $headers[$i + 1];
+
+		if ( $current_depth == $header->level ) {
+			$output .= '<li class="level-' . $header->level . '">';
+		}
+	
+		// start lists
+		if ( $current_depth != $header->level ) {
+			for ($current_depth; $current_depth < $header->level; $current_depth++) {
+				$numbered_items[$current_depth + 1] = 0;
+				$output .= '<ol><li class="level-' . $header->level . '">';
+			}
+		}
+		
+		// list item
+		$output .= '<a href="#' . $header->anchor . '">' . $header->text . '</a>';
+		
+		
+		// end lists
+		if ( $i != count($headers) - 1 ) {
+			if ( $current_depth > $the_next_header->level ) {
+				for ($current_depth; $current_depth > $the_next_header->level; $current_depth--) {
+					$output .= '</li></ol>';
+					$numbered_items[$current_depth] = 0;
+				}
+			}
+			
+			if ( $current_depth == $the_next_header->level ) {
+				$output .= '</li>';
+			}
+		} else {
+			// this is the last item, make sure we close off all tags
+			for ($current_depth; $current_depth >= $numbered_items_min; $current_depth--) {
+				$output .= '</li>';
+				if ( $current_depth != $numbered_items_min ) {
+					$output .= '</ol>';
+				}
+			}
+		}
+	}
+	
+	$output .= '</ol>';
 	$output .= '</div>';
 	
-	echo $output;	
+	echo $output;
 }

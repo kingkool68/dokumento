@@ -136,6 +136,33 @@ text-transform:uppercase;
 font-style:normal;
 }
 
+/* TOC */
+.dokumento-toc ol {
+margin-bottom:0.25em;
+}
+.dokumento-toc ol li {
+list-style-type:decimal;
+}
+.dokumento-toc ol li li {
+list-style-type:upper-alpha;
+}
+.dokumento-toc ol li li li {
+list-style-type:upper-roman;
+}
+.dokumento-toc ol li li li li {
+list-style-type:lower-alpha;
+}
+.dokumento-toc ol li li li li li {
+list-style-type:lower-roman;
+}
+.dokumento-toc ol li li li li li li {
+list-style-type:decimal-leading-zero;
+}
+.toc-anchor {
+margin-left: -0.8em;
+margin-right: 0.2em;
+}
+
 /* Footer */
 footer {
 clear:both;
