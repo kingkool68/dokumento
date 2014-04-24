@@ -1,28 +1,13 @@
 <?php
-// post thumbnail support
-add_theme_support( 'post-thumbnails', 'html5' );
+//add_theme_support( 'post-thumbnails' );
+add_theme_support( 'html5' );
 	
 // custom menu support
-add_theme_support( 'menus' );
-if ( function_exists( 'register_nav_menus' ) ) {
-	register_nav_menus(
-		array(
-	  		  'header_menu' => 'Header Menu',
-	  		  'sidebar_menu' => 'Sidebar Menu',
-	  		  'footer_menu' => 'Footer Menu'
-	  	)
-	);
-}
-	
-// category id in body and post class
-function category_id_class($classes) {
-	global $post;
-	foreach((get_the_category($post->ID)) as $category)
-		$classes [] = 'cat-' . $category->cat_ID . '-id';
-		return $classes;
-}
-	add_filter('post_class', 'category_id_class');
-	add_filter('body_class', 'category_id_class');
+register_nav_menus(
+	array(
+		'header_menu' => 'Header Menu'
+	)
+);
 
 //Nice Search URL
 function txfx_nice_search() {
@@ -123,3 +108,4 @@ function dokumento_human_time_diff( $levels = 2, $from, $to = false ) {
 $dokumento_functions_path = TEMPLATEPATH . '/functions';
 include  $dokumento_functions_path . '/css-js.php';
 include  $dokumento_functions_path . '/toc.php';
+include  $dokumento_functions_path . '/revisions.php';
