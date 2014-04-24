@@ -20,15 +20,6 @@
 <link rel="index" title="<?php bloginfo( 'name' ); ?>" href="<?php echo get_option('home'); ?>/" >
 <?php wp_head(); ?>
 </head>
-<?php
-if(isset($_GET['grid'])) {
-	add_filter('body_class','add_grid_class');
-	function add_grid_class($classes, $class) {
-		$classes[] = 'grid';
-		return $classes;
-	}
-}
-?>
 <body <?php body_class(); ?>>
 <a id="top" href="#content">Skip to Content</a>
 <header>
@@ -38,10 +29,10 @@ if(isset($_GET['grid'])) {
 			<p class="tagline"><?php echo $tagline; ?></p>
 		<?php endif; ?>
 		
-		<form action="<?php echo get_site_url();?>">
-			<label for="s">Search</label>
-			<input type="search" name="s" id="s">
-			<input type="submit" value="search">
+		<form action="<?php echo get_site_url();?>" class="search">
+			<label for="s" class="hidden">Search</label>
+			<input type="search" name="s" id="s" value="<?php echo the_search_query();?>">
+			<input type="submit" value="Search">
 		</form>
 	</div>
 </header>
