@@ -1,6 +1,6 @@
 <?php
 // post thumbnail support
-add_theme_support( 'post-thumbnails' );
+add_theme_support( 'post-thumbnails', 'html5' );
 	
 // custom menu support
 add_theme_support( 'menus' );
@@ -37,75 +37,6 @@ function replace_pluses_with_spaces($s) {
 	return str_replace('+', ' ', $s);
 }
 add_filter('get_search_query', 'replace_pluses_with_spaces');
-
-
-
-/* Register Custom Post Types
-function register_dokumento_post_types() {
-  $common_args = array(
-    'public' => true,
-    'publicly_queryable' => true,
-    'show_ui' => true, 
-    'show_in_menu' => true, 
-    'query_var' => true,
-    'rewrite' => true,
-    'capability_type' => 'post',
-    'has_archive' => true, 
-    'hierarchical' => false,
-    'taxonomies' => array('post_tag'),
-    'supports' => array( 'title', 'editor', 'revisions' )
-  ); 
-  
-  $args = &$common_args;
-  $args['menu_position'] = 5;
-  $args['labels'] = array(
-    'name' => 'Design',
-    'singular_name' => 'Design',
-  );
-  register_post_type('design', $args);
-  
-  $args = &$common_args;
-  $args['menu_position'] = 4;
-  $args['labels'] = array(
-    'name' => 'Publishing',
-    'singular_name' => 'Publishing',
-  );
-  register_post_type('publishing', $args);
-  
-  $args = &$common_args;
-  $args['menu_position'] = 6;
-  $args['labels'] = array(
-    'name' => 'Code',
-    'singular_name' => 'Code',
-  );
-  register_post_type('code', $args);
-}
-add_action( 'init', 'register_dokumento_post_types' );
-
-*/
-
-function register_default_dokumento_post_type() {
-	$args = array(
-    'public' => true,
-    'publicly_queryable' => true,
-    'show_ui' => true, 
-    'show_in_menu' => true, 
-    'query_var' => true,
-    'rewrite' => true,
-    'capability_type' => 'post',
-    'has_archive' => true, 
-    'hierarchical' => false,
-    'taxonomies' => array('post_tag'),
-    'supports' => array( 'title', 'editor', 'revisions' ),
-	'menu_position' => 5,
-	'labels' => array(
-    	'name' => 'Documentation',
-    	'singular_name' => 'Documentation',
-  	)
-  );
-  register_post_type('documentation', $args);
-}
-//add_action( 'init', 'register_default_dokumento_post_type' );
 
 //Tags
 function get_dokumento_tags() {
