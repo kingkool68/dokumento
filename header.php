@@ -37,6 +37,12 @@ if(isset($_GET['grid'])) {
 		<?php if( $tagline = get_bloginfo('description') ): ?>
 			<p class="tagline"><?php echo $tagline; ?></p>
 		<?php endif; ?>
+		
+		<form action="<?php echo get_site_url();?>">
+			<label for="s">Search</label>
+			<input type="search" name="s" id="s">
+			<input type="submit" value="search">
+		</form>
 	</div>
 </header>
 
