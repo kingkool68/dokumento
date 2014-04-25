@@ -109,3 +109,4 @@ $dokumento_functions_path = TEMPLATEPATH . '/functions';
 include  $dokumento_functions_path . '/css-js.php';
 include  $dokumento_functions_path . '/toc.php';
 include  $dokumento_functions_path . '/revisions.php';
+include  $dokumento_functions_path . '/backlinks.php';
