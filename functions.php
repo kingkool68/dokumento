@@ -1,6 +1,6 @@
 <?php
-//add_theme_support( 'post-thumbnails' );
-add_theme_support( 'html5' );
+
+add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form', 'gallery', 'caption' ) );
 	
 // custom menu support
 register_nav_menus(
@@ -22,6 +22,28 @@ function replace_pluses_with_spaces($s) {
 	return str_replace('+', ' ', $s);
 }
 add_filter('get_search_query', 'replace_pluses_with_spaces');
+
+//Remove features from the post post type.
+function dokumento_init() {
+	$features_to_be_removed = array('thumbnail', 'trackbacks', 'comments', 'custom-fields');
+	foreach( $features_to_be_removed as $feature ) {
+		remove_post_type_support( 'post', $feature );
+	}
+}
+add_action( 'init', 'dokumento_init' );
+
+function dockumento_default_attachment_display_settings() {
+	update_option( 'image_default_align', 'right' );
+	update_option( 'image_default_link_type', 'post' );
+	update_option( 'image_default_size', 'medium' );
+}
+add_action( 'after_setup_theme', 'dockumento_default_attachment_display_settings' );
+
+function dokumento_remove_post_metaboxes() {
+    //args: $categoryslug.'div', $posttype, $location
+    remove_meta_box('categorydiv', 'post', 'side');
+}
+add_action('admin_init', 'dokumento_remove_post_metaboxes');
 
 //Tags
 function get_dokumento_tags() {
