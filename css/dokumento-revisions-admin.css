@@ -1,0 +1,22 @@
+#dockumento-revision-message {
+font-size: 18px;
+padding: 12px 14px;
+width: 90%;
+margin:0 auto;
+min-width: 200px;
+-webkit-box-shadow: inset 2px 2px 4px -2px rgba(0,0,0,.1);
+box-shadow: inset 2px 2px 4px -2px rgba(0,0,0,.1);
+}
+.ir {
+background-color: transparent;
+border: 0;
+overflow: hidden;
+/* IE 6/7 fallback */
+*text-indent: -9999px;
+}
+.ir:before {
+content: "";
+display: block;
+width: 0;
+height: 150%;
+}

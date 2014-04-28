@@ -18,6 +18,31 @@ function dokumento_revisions_template_include( $template ) {
 }
 add_filter( 'template_include', 'dokumento_revisions_template_include', 99 );
 
+function dokumento_revisions_admin_enqueue_scripts($hook) {
+	if( $hook != 'post.php' ) {
+        return;
+	}
+    wp_enqueue_script( 'dokumento-revisions', get_template_directory_uri() . '/js/dokumento-revisions.js', array('jquery') );
+	wp_enqueue_style( 'dokumento-revisions', get_template_directory_uri() . '/css/dokumento-revisions-admin.css', array(), '0.1', 'all' );
+}
+add_action( 'admin_enqueue_scripts', 'dokumento_revisions_admin_enqueue_scripts' );
+
+function dokumento_edit_form_top() {
+	$screen = get_current_screen();
+	if( $screen->base != 'post' ) {
+		return;
+	}
+	?>
+	<fieldset id="dokumento-revision-fields" style="display:none;">
+		<label for="dockumento-revision-message">Enter a summary fo your changes</label>
+		<textarea name="dockumento-revision-message" id="dockumento-revision-message"></textarea>
+		<label><input type="checkbox" id="dockumento-revision-minor" name="dockumento-revision-minor" value="true"> Minor Revision</label>
+	</fieldset>
+	<?php
+}
+add_action( 'edit_form_top', 'dokumento_edit_form_top', 2, 100 );
+
+/* Helper Functions */
 function is_revision() {
 	global $wp_query;
 	if( isset( $wp_query->query['revisions'] ) ) {
