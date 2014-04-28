@@ -48,6 +48,9 @@ font-size:3.15em;
 margin-bottom:0.4em;
 margin-top:1.2em;
 }
+.sidebar h2 {
+margin-top:0;
+}
 h3 {
 font-size:2.1em;
 margin-bottom:0.4em;
@@ -67,7 +70,8 @@ li  {
 font-size:1.4em;
 line-height:133%;
 }
-li li {
+li li,
+li p {
 font-size:1em;
 }
 li {
@@ -92,6 +96,22 @@ pre {
 font-size: 1.2em;
 line-height: 1.25;
 }
+abbr,
+dfn {
+border-bottom:0.1em dotted;
+cursor:help;
+}
+sup,
+sub {
+font-size: 85%;
+position: relative;
+top: -0.4em;
+vertical-align: baseline;
+}
+sub {
+top:0.4em;
+}
+
 
 /* Structure/Layout */
 .holder {
@@ -113,6 +133,12 @@ header {
 background-color:#555;
 padding:1.2em 0 0.8em;
 margin-bottom:2.4em;
+overflow:auto;
+height:100%;
+}
+header .group {
+float:left;
+width:50%;
 }
 header .site-title {
 margin-bottom:0;
@@ -126,14 +152,45 @@ font-style: italic;
 header .search {
 float:right;
 width:25%;
+padding-top:4em;
 }
 header .search label {
 
 }
 
+/* Content */
+.page-title .edit {
+font-size:0.3555em;;
+}
+
+/* Media */
+.alignright {
+float:right;
+margin-left:1em;
+}
+.alignleft {
+float:left;
+margin-right:1em;
+}
+.aligncenter {
+display:block;
+margin-left:auto;
+margin-right:auto;
+}
+.wp-caption-text {
+font-size:1.2em;
+padding-top:1em;
+}
+figure {
+margin:1em 0;
+padding:0.6em;
+background-color:#efefef;
+}
+
 /* Meta */
 .meta {
 font-style:italic;
+clear:both;
 }
 .meta .updated {
 font-style:normal;
@@ -144,6 +201,15 @@ font-style:normal;
 }
 
 /* TOC */
+.dokumento-toc {
+float:right;
+border:0.1em solid #ccc;
+padding:1em 1.5em;
+margin-left:1.5em;
+}
+.dokumento-toc h2 {
+margin-top:0;
+}
 .dokumento-toc ol {
 margin-bottom:0.25em;
 }

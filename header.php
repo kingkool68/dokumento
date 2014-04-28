@@ -24,10 +24,12 @@
 <a id="top" href="#content">Skip to Content</a>
 <header>
 	<div class="holder">
-		<h1 class="site-title"><a href="<?php echo get_site_url(); ?>"><?php bloginfo('name'); ?></a></h1>
-		<?php if( $tagline = get_bloginfo('description') ): ?>
-			<p class="tagline"><?php echo $tagline; ?></p>
-		<?php endif; ?>
+		<div class="group">
+			<h1 class="site-title"><a href="<?php echo get_site_url(); ?>"><?php bloginfo('name'); ?></a></h1>
+			<?php if( $tagline = get_bloginfo('description') ): ?>
+				<p class="tagline"><?php echo $tagline; ?></p>
+			<?php endif; ?>
+		</div>
 		
 		<form action="<?php echo get_site_url();?>" class="search">
 			<label for="s" class="hidden">Search</label>
@@ -37,4 +39,4 @@
 	</div>
 </header>
 
-<div class="holder">
+<div class="holder clearfix">
