@@ -126,6 +126,13 @@ function dokumento_human_time_diff( $levels = 2, $from, $to = false ) {
 	return implode(' ',$result);
 }
 
+function dokumento_attachment_link( $link, $post_id ) {
+	$post = get_post( $post_id );
+	$new_link = get_site_url() . '/attachment/' . $post->post_name . '/';
+	return $new_link;
+}
+add_filter( 'attachment_link', 'dokumento_attachment_link', 2, 10 );
+
 //Include functions
 $dokumento_functions_path = TEMPLATEPATH . '/functions';
 include  $dokumento_functions_path . '/css-js.php';
