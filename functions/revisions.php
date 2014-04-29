@@ -36,11 +36,29 @@ function dokumento_edit_form_top() {
 	<fieldset id="dokumento-revision-fields" style="display:none;">
 		<label for="dockumento-revision-message">Enter a summary fo your changes</label>
 		<textarea name="dockumento-revision-message" id="dockumento-revision-message"></textarea>
+		
 		<label><input type="checkbox" id="dockumento-revision-minor" name="dockumento-revision-minor" value="true"> Minor Revision</label>
 	</fieldset>
 	<?php
 }
 add_action( 'edit_form_top', 'dokumento_edit_form_top', 2, 100 );
+
+function dokumento_save_post( $post_id ) {
+	var_dump( $_REQUEST );
+	if ( $parent_id = wp_is_post_revision( $post_id ) ) {
+		$changelog = get_post_meta( $parent_id, 'revision_changelog', true );
+		var_dump( $changelog );
+		die();
+		/*
+		if ( false !== $my_meta )
+			add_metadata( 'post', $post_id, 'my_meta', $my_meta );
+		*/
+
+	}
+	
+	die();
+}
+add_action( 'save_post', 'dokumento_save_post' );
 
 /* Helper Functions */
 function is_revision() {

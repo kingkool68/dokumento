@@ -1,8 +1,24 @@
+#dokumento-revisions-modal .media-modal {
+width:500px;
+max-height:250px;
+left:auto;
+}
+#dokumento-revisions-modal label {
+display:block;
+clear:both;
+}
+#dokumento-revisions-modal .media-modal-content {
+padding:1em 2.5em;
+margin:0 auto;
+min-height:200px;
+}
+
 #dockumento-revision-message {
 font-size: 18px;
 padding: 12px 14px;
+display:block;
 width: 90%;
-margin:0 auto;
+margin-bottom:4px;
 min-width: 200px;
 -webkit-box-shadow: inset 2px 2px 4px -2px rgba(0,0,0,.1);
 box-shadow: inset 2px 2px 4px -2px rgba(0,0,0,.1);
