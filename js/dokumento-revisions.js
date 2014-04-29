@@ -23,9 +23,7 @@ jQuery( function ( $ ) {
 		dialogHTML += 			'<a role="button" class="media-modal-close" href="#" title="Close"><span class="media-modal-icon ir">Close</span></a>';
 		dialogHTML += 			'<div class="media-modal-content">';
 		dialogHTML +=					'<h1>Revision Summary</h1>';
-		dialogHTML +=					'<div class="modal-fields">';
-		dialogHTML += 						originalDokumentoRevisionFields;
-		dialogHTML += 					'</div>';
+		dialogHTML += 					originalDokumentoRevisionFields;
 		dialogHTML += 					'<div class="media-frame-toolbar">';
 		dialogHTML += 						'<div class="media-toolbar">';
 		dialogHTML +=							'<div class="media-toolbar-primary"><a href="#" class="button media-button button-primary button-large media-button-insert">' + updateWording + '</a></div>';
@@ -46,9 +44,7 @@ jQuery( function ( $ ) {
 		
 		$dialogHTML.find( '.button-primary' ).on( 'click', function(e) {
 			e.preventDefault();
-			var fields = $('#dokumento-revisions-modal .modal-fields').html();
-			//$('#dokumento-revision-fields').html( fields );
-			//$( "#publish" ).off( "click.show_revisions_modal" ).click();
+			$( "#publish" ).off( "click.show_revisions_modal" ).click();
 			return true;
 		});
 		// When the user shifts focus (typically through pressing the tab key ).
@@ -62,7 +58,7 @@ jQuery( function ( $ ) {
 		} ) ;
 		// Set overflow to hidden on the body, preventing the user from scrolling the
 		// disabled content and append the dialog to the body.
-		$( "body" ).css( { "overflow": "hidden" } ).append( $dialogHTML )
+		$( "body" ).css( { "overflow": "hidden" } ).find('form#post').append( $dialogHTML )
 		$('#dockumento-revision-message').focus();
 	} );
 
@@ -78,6 +74,8 @@ jQuery( function ( $ ) {
 		$( "body" ).css( { "overflow": "auto" } );
 		$( "#dokumento-revisions-modal .media-modal-close" ).off( "click" );
 		$( "#dokumento-revisions-modal").remove();
+		
+		//Restore the original form fields
 		$('#dokumento-revision-fields').html( originalDokumentoRevisionFields );
 		$('#publish').focus();
 	};
