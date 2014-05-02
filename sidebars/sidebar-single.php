@@ -1,0 +1,1 @@
+<?php echo dokumento_tags(); ?>
