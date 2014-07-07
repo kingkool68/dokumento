@@ -6,11 +6,15 @@
 			<?php
 			$revisions = get_revisions();
 			if( count($revisions) > 1 ):
-				$latest_revision = $revisions[ 0 ]->ID;
+				
+				$latest_revision = array_shift( $revisions );
+				$relative_date = dokumento_human_time_diff(2, strtotime( $latest_revision->post_date ) );
+				$display_name = get_dokumento_user( $latest_revision->post_author, 'display_name' );
 			?>
+				<p>Current Revision: <?php echo $relative_date; ?> ago - by <?php echo $display_name; ?></p>
 				<ol>
 					<?php foreach( $revisions as $rev ):
-						$compare_url = get_admin_url() . 'revision.php?from=' . $rev->ID . '&to=' . $latest_revision;
+						$compare_url = get_admin_url() . 'revision.php?from=' . $rev->ID . '&to=' . $latest_revision->ID;
 						$absolute_date = date('M. j, Y g:i a', strtotime( $rev->post_date ));
 						$relative_date = dokumento_human_time_diff(2, strtotime( $rev->post_date ) );
 						$display_name = get_dokumento_user( $rev->post_author, 'display_name' );
