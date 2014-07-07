@@ -12,7 +12,7 @@
 				<?php
 				$revs = get_revisions();
 				if( $revs && count( $revs ) > 1 ): 
-					$revisions_text = number_format( count( $revs ) ) . ' revisions';					
+					$revisions_text = number_format( count( $revs ) - 1 ) . ' revisions';					
 					$revisions_url = get_permalink( $post->ID ) . 'revisions/';
 				?>
 				<p><a href="<?php echo $revisions_url;?>" title="View <?php echo $revisions_text; ?> for <?php esc_attr_e( $post->post_title );?>"><?php echo $revisions_text; ?></a></p>
