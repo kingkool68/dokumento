@@ -89,8 +89,9 @@ function dokumento_tags() {
 //My own human time diff function from http://www.php.net/manual/en/ref.datetime.php#90989
 function dokumento_human_time_diff( $levels = 2, $from, $to = false ) {
 	if( !$to ) {
-		$to = time();
+		$to = strtotime( current_time( 'mysql' ) );
 	}
+	
 	$blocks = array(
 		array('name'=>'year','amount'	=>	60*60*24*365	),
 		array('name'=>'month','amount'	=>	60*60*24*31	),
