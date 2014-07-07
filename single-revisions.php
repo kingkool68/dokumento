@@ -12,7 +12,7 @@
 					<?php foreach( $revisions as $rev ):
 						$compare_url = get_admin_url() . 'revision.php?from=' . $rev->ID . '&to=' . $latest_revision;
 						$absolute_date = date('M. j, Y g:i a', strtotime( $rev->post_date ));
-						$relative_date = dokumento_human_time_diff(1, strtotime( $rev->post_date ) );
+						$relative_date = dokumento_human_time_diff(2, strtotime( $rev->post_date ) );
 						$display_name = get_dokumento_user( $rev->post_author, 'display_name' );
 					?>
 					<li><a href="<?php echo $compare_url; ?>" title="Compare current version to the version on <?php echo $absolute_date;?>"><?php echo $relative_date; ?> ago - by <?php echo $display_name; ?></a></li>
