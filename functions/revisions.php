@@ -44,21 +44,17 @@ function dokumento_edit_form_top() {
 add_action( 'edit_form_top', 'dokumento_edit_form_top', 2, 100 );
 
 function dokumento_save_post( $post_id ) {
-	//var_dump( $_REQUEST );
-	if ( $parent_id = wp_is_post_revision( $post_id ) ) {
-		$changelog = get_post_meta( $parent_id, 'revision_changelog', true );
-		/*
-		var_dump( $changelog );
-		die();
-		*/
-		/*
-		if ( false !== $my_meta )
-			add_metadata( 'post', $post_id, 'my_meta', $my_meta );
-		*/
-
-	}
+	$rev = array_shift( get_revisions( $post_id ) );
 	
-	//die();
+	if ( $parent_id = wp_is_post_revision( $rev->ID) ) {
+		$changelog = get_post_meta( $parent_id, 'revision_changelog', true );
+		if( !$changelog ) {
+			$changelog = array();
+		}
+		$changelog[$rev->ID] = $_REQUEST['dockumento-revision-message'];
+		
+		update_post_meta($parent_id, 'revision_changelog', $changelog );
+	}
 }
 add_action( 'save_post', 'dokumento_save_post' );
 
