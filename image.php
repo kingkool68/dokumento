@@ -4,7 +4,7 @@
 		<h1 class="page-title"><?php the_title(); ?> <a href="<?php echo get_edit_post_link();?>" class="edit">Edit</a></h1>
 		<div id="content" role="main">
 			<?php
-				$src = wp_get_attachment_image_src( $post->ID, 'medium' );
+				$src = wp_get_attachment_image_src( $post->ID, 'large' );
 			?>
 			
 			<img src="<?php echo $src[0]; ?>">

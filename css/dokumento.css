@@ -111,7 +111,10 @@ vertical-align: baseline;
 sub {
 top:0.4em;
 }
-
+img {
+max-width:100%;
+height:auto;
+}
 
 /* Structure/Layout */
 .holder {
