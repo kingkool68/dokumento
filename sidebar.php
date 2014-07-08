@@ -2,6 +2,8 @@
 $file = '';
 if( is_attachment() ) {
 	$file = 'attachment';
+} else if( is_revision() ) {
+	$file = 'revision';
 } else if( is_single() ) {
 	$file = 'single';
 } 
