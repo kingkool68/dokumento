@@ -83,6 +83,12 @@ function get_revisions( $post_id = NULL ){
 		return array();
 	}
 	
+	$cache_key = 'dokumento_revs_' . $post_id;
+	
+	if( $revisions = wp_cache_get( $cache_key ) ) {
+		return $revisions;
+	}
+	
 	$args = array(
 		'post_parent' => $post->ID,
 		'post_type' => 'revision',
@@ -98,6 +104,7 @@ function get_revisions( $post_id = NULL ){
 		}
 	}
 	
+	wp_cache_add( $cache_key, $revisions );
 	return $revisions;
 }
 
