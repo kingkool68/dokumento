@@ -1,8 +1,9 @@
 <?php
 //Register CSS
 function register_dokumento_styles() {
+	wp_register_style( 'merriweather', 'http://fonts.googleapis.com/css?family=Merriweather:400,700,400italic,300,300italic,700italic,900,900italic', false, NULL, 'all' );
 	wp_register_style( 'reset', get_template_directory_uri() . '/css/reset.css', false, NULL, 'all' );
-	wp_register_style( 'dokumento', get_template_directory_uri() . '/css/dokumento.css', array('reset'), NULL, 'all' );
+	wp_register_style( 'dokumento', get_template_directory_uri() . '/css/dokumento.css', array('reset', 'merriweather'), NULL, 'all' );
 	
 	wp_enqueue_style( 'dokumento' );
 }

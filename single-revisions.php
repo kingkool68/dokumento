@@ -19,19 +19,19 @@
 				
 			?>
 				<p>Current Revision: <?php echo $relative_date; ?> ago - by <?php echo $display_name; ?> <?php echo $changelog; ?></p>
-				<ol>
+				<ol class="revisions">
 					<?php foreach( $revisions as $rev ):
 						$compare_url = get_admin_url() . 'revision.php?from=' . $rev->ID . '&to=' . $latest_revision->ID;
 						$absolute_date = date('M. j, Y g:i a', strtotime( $rev->post_date ));
 						$relative_date = dokumento_human_time_diff(2, strtotime( $rev->post_date ) );
 						$display_name = get_dokumento_user( $rev->post_author, 'display_name' );
 						
-						$changelog = '';
+						$changelog = 'No change log';
 						if( isset( $revision_changelogs[ $rev->ID ] ) ) {
-							$changelog = $changelog = '<em>' . $revision_changelogs[ $rev->ID ] . '</em>';
+							$changelog = $revision_changelogs[ $rev->ID ];
 						}
 					?>
-					<li><a href="<?php echo $compare_url; ?>" title="Compare current version to the version on <?php echo $absolute_date;?>"><?php echo $relative_date; ?> ago - by <?php echo $display_name; ?></a> <?php echo $changelog; ?></li>
+					<li><a href="<?php echo $compare_url; ?>" title="Compare current version to the version on <?php echo $absolute_date;?>"><em><?php echo $changelog; ?></em> <?php echo $relative_date; ?> ago &bull; <?php echo $display_name; ?></a></li>
 					<?php endforeach; ?>
 				</ol>
 			<?php else: ?>

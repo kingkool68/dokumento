@@ -5,7 +5,7 @@ add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form'
 // custom menu support
 register_nav_menus(
 	array(
-		'header_menu' => 'Header Menu'
+		'main-menu' => 'Main Menu'
 	)
 );
 

@@ -1,7 +1,7 @@
 <?php //Closes div.holder in header.php ?>
 </div>
 
-<footer>
+<!--footer>
 	<div class="holder">
 		<div class="widget">
 			<h2>Recent Updates</h2>
@@ -21,6 +21,6 @@
 			</ul>
 		</div>
 	</div>
-</footer>
+</footer -->
 <?php wp_footer(); ?>
 </body></html>

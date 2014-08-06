@@ -23,20 +23,18 @@
 <body <?php body_class(); ?>>
 <a id="top" href="#content">Skip to Content</a>
 <header>
-	<div class="holder">
-		<div class="group">
-			<h1 class="site-title"><a href="<?php echo get_site_url(); ?>"><?php bloginfo('name'); ?></a></h1>
-			<?php if( $tagline = get_bloginfo('description') ): ?>
-				<p class="tagline"><?php echo $tagline; ?></p>
-			<?php endif; ?>
-		</div>
-		
-		<form action="<?php echo get_site_url();?>" class="search">
-			<label for="s" class="hidden">Search</label>
-			<input type="search" name="s" id="s" value="<?php echo the_search_query();?>">
-			<input type="submit" value="Search">
-		</form>
-	</div>
+	<h1 class="site-title"><a href="<?php echo get_site_url(); ?>"><?php bloginfo('name'); ?></a></h1>
+	<?php if( $tagline = get_bloginfo('description') ): ?>
+		<p class="tagline"><?php echo $tagline; ?></p>
+	<?php endif; ?>
+	
+	<?php wp_nav_menu( array( 'theme_location' => 'main-menu' ) ); ?>
 </header>
 
-<div class="holder clearfix">
+<div class="holder clearfix wrapper">
+	
+	<form action="<?php echo get_site_url();?>" class="search">
+		<label for="s" class="hidden">Search</label>
+		<input type="search" name="s" id="s" value="<?php echo the_search_query();?>" placeholder="Search">
+		<!--input type="submit" value="Search"-->
+	</form>
