@@ -1,11 +1,25 @@
 <?php
 function dokumento_revisions_init() {
-	add_rewrite_endpoint( 'revisions', EP_PERMALINK );
+	add_rewrite_endpoint( 'revisions', EP_PERMALINK | EP_PAGES | EP_ROOT );
 }
 add_action('init', 'dokumento_revisions_init');
 
+function dokumento_pre_get_posts($query) {
+	if ($query->is_home && $query->is_main_query() && isset( $query->query['revisions'] ) && empty( $query->query['revisions'] )  ) {
+		$front_page_id = get_option('page_on_front');
+		$query->set( 'p', $front_page_id );
+		$query->set( 'post_type', array('post', 'page') );
+	}
+	
+	//var_dump( $query );
+	//die();
+	
+	return $query;
+}
+add_filter('pre_get_posts','dokumento_pre_get_posts');
+
 function dokumento_revisions_template_include( $template ) {
-	if( !is_revision() || !is_single() ) {
+	if( !is_revision() || (!is_single() && !is_home() ) ) {
 		return $template;
 	}
 	

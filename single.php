@@ -1,7 +1,9 @@
 <?php get_header(); ?>
 
 <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+		<?php if( is_home() ): ?>
 		<h1 class="page-title"><?php the_title(); ?> <a href="<?php echo get_edit_post_link();?>" class="edit">Edit</a></h1>
+		<?php endif; ?>
 		<div id="content" role="main">
 			<?php dokumento_toc(); ?>
 			
