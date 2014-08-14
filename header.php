@@ -27,11 +27,13 @@
 	<?php if( $tagline = get_bloginfo('description') ): ?>
 		<p class="tagline"><?php echo $tagline; ?></p>
 	<?php endif; ?>
+	
+	<a href="#nav" id="menu">Menu</a>
+	
+	<nav>
+		<?php wp_nav_menu( array( 'theme_location' => 'main-menu' ) ); ?>
+	</nav>
 </header>
-
-<nav>
-	<?php wp_nav_menu( array( 'theme_location' => 'main-menu' ) ); ?>
-</nav>
 
 <div class="holder clearfix wrapper">
 	

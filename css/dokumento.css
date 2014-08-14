@@ -124,6 +124,11 @@ max-width:104em;
 margin:0 auto;
 padding:0 1.5em;
 }
+.wrapper {
+position:relative;
+z-index:10;
+background-color:#fff;
+}
 
 /* Header */
 header {
@@ -150,7 +155,23 @@ font-size:1.6em;
 
 /* Nav */
 nav {
-display:none;
+position:absolute;
+left:2.5em;
+bottom:2.5em;
+z-index:100;
+padding-top:3em;
+text-align:left;
+}
+.js nav {
+bottom:auto;
+z-index:1;
+width:20em;
+}
+body.nav-open {
+overflow:hidden;
+}
+.nav-open .wrapper {
+left:22em;
 }
 
 /* Content */
@@ -295,6 +316,9 @@ display:block;
 	header .tagline {
 	display:block;
 	padding-left:0;
+	}
+	header nav {
+	position:relative;
 	}
 	.search #s {
 	margin-top:2em;
