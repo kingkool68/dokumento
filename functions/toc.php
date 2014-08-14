@@ -212,5 +212,19 @@ function dokumento_toc() {
 	$output .= '</ol>';
 	$output .= '</div>';
 	
-	echo $output;
+	return $output;
 }
+
+//Add the TOC just before the first headline just like Wikipedia does.
+function dokumento_toc_the_content( $content ) {
+	if( is_single() ) {
+		$toc = dokumento_toc();
+		if( !$toc ) {
+			return;
+		}
+		
+		$content = preg_replace('/<h(\d)/im', $toc . "\n\n<h$1", $content, 1);
+	}
+	return $content;
+}
+add_filter( 'the_content', 'dokumento_toc_the_content' );
