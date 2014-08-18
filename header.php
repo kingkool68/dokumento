@@ -17,6 +17,7 @@
 		} ?>
 </title>
 <meta charset="<?php bloginfo( 'charset' ); ?>" >
+<meta name="viewport" content="width=device-width">
 <link rel="index" title="<?php bloginfo( 'name' ); ?>" href="<?php echo get_option('home'); ?>/" >
 <?php wp_head(); ?>
 </head>
