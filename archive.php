@@ -16,7 +16,7 @@ function dokumento_edit_term_link( $link = '', $before = '', $after = '', $echo 
 		$link = 'Edit';
 	}
 
-	$link = '<a href="' . get_edit_term_link( $term->term_id, $term->taxonomy ) . '" class="edit">' . $link . '</a>';
+	$link = '<a href="' . get_edit_term_link( $term->term_id, $term->taxonomy ) . '" class="edit" title="Edit"><i class="icon-pencil"></i> <span class="hidden">' . $link . '</span></a>';
 
 	/**
 	 * Filter the anchor tag for the edit link of a term.
@@ -37,8 +37,9 @@ function dokumento_edit_term_link( $link = '', $before = '', $after = '', $echo 
 get_header();
 ?>
 
-<h1 class="page-title"><?php single_term_title();?> <?php dokumento_edit_term_link('Edit'); ?></h1>
 <div id="content" role="main">
+	<h1 class="page-title"><?php single_term_title();?> <?php dokumento_edit_term_link('Edit'); ?></h1>
+	<p class="freshness"></p>
 	<?php if( $term_description = term_description() ) : ?>
 		<div class="description">
 			<?php echo $term_description; ?>
