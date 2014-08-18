@@ -8,8 +8,16 @@
 
 <nav id="nav">
 	<section>
-	<h2>Nav</h2>
-	<?php wp_nav_menu( array( 'theme_location' => 'main-menu' ) ); ?>
+		<h2>This Post</h2>
+		<ul>
+			<li><a href="#tags">Tags</a></li>
+			<li><a href="<?php echo get_permalink(); ?>revisions/">History</a></li>
+			<li><a href="<?php echo get_permalink(); ?>backlinks/">What links here?</a></li>
+		</ul>
+	</section>
+	<section>
+		<h2>Nav</h2>
+		<?php wp_nav_menu( array( 'theme_location' => 'main-menu' ) ); ?>
 	</section>
 </nav>
 
