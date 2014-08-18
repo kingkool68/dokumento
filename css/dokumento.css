@@ -150,6 +150,8 @@ backface-visibility: hidden;
 }
 #scrollbar-catcher {
 overflow:hidden;
+position:relative;
+top:0.1em;
 }
 .nav-open #magic-shield {
 position:absolute;
