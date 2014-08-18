@@ -31,7 +31,7 @@
 			<p class="tagline"><?php echo $tagline; ?></p>
 		<?php endif; ?>
 		
-		<a href="#nav" id="menu">Menu</a>
+		<a href="#nav" id="menu"><i class="icon-menu"></i><span>Menu</span></a>
 	</div>
 </header>
 
