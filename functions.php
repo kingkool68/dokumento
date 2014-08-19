@@ -45,6 +45,25 @@ function dokumento_remove_post_metaboxes() {
 }
 add_action('admin_init', 'dokumento_remove_post_metaboxes');
 
+//After editing a post or a term, we should redirect you to the frontend to see your changes.
+function dokumento_edit_post_redirect($post_id, $post) {
+	$permalink = get_permalink( $post_id );
+	if( $permalink ) {
+		wp_redirect( $permalink );
+		die();
+	}
+}
+add_action('edit_post', 'dokumento_edit_post_redirect', 99, 2);
+
+function dokumento_edited_term_redirect($term_id, $tt_id, $taxonomy) {
+	$permalink = get_term_link( $term_id, $taxonomy );
+	if( $permalink ) {
+		wp_redirect( $permalink );
+		die();
+	}
+}
+add_action('edited_term', 'dokumento_edited_term_redirect', 99, 3);
+
 //Tags
 function get_dokumento_tags() {
 	global $post;
