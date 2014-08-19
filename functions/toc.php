@@ -220,7 +220,7 @@ function dokumento_toc_the_content( $content ) {
 	if( is_single() ) {
 		$toc = dokumento_toc();
 		if( !$toc ) {
-			return;
+			return $content;
 		}
 		
 		$content = preg_replace('/<h(\d)/im', $toc . "\n\n<h$1", $content, 1);
