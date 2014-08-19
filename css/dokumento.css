@@ -67,7 +67,8 @@ ol {
 padding-left:3em;
 }
 p,
-li  {
+li,
+pre {
 font-size:1.6em;
 line-height:1.75;
 }
@@ -92,10 +93,6 @@ font-style:italic;
 background-color:#f3f3f3;
 padding:0.5em 1.5em 0.1em 2.5em;
 }
-pre {
-font-size: 1.2em;
-line-height: 1.25;
-}
 abbr,
 dfn {
 border-bottom:0.1em dotted;
@@ -114,6 +111,31 @@ top:0.4em;
 img {
 max-width:100%;
 height:auto;
+}
+kbd {
+-moz-border-radius:0.3em;
+-moz-box-shadow:0 0.1em 0 rgba(0,0,0,0.2),0 0 0 0.2em #fff inset;
+-webkit-border-radius:0.3em;
+-webkit-box-shadow:0 0.1em 0 rgba(0,0,0,0.2),0 0 0 0.2em #fff inset;
+background-color:#f7f7f7;
+border:1px solid #ccc;
+border-radius:0.3em;
+box-shadow:0 1px 0 rgba(0,0,0,0.2),0 0 0 0.2em #fff inset;
+color:#333;
+display:inline-block;
+font-family:Helvetica, Arial, sans-serif;
+line-height:1.4;
+margin:0 0.1em;
+padding:0.1em 0.6em;
+text-shadow:0 0.1em 0 #fff;
+}
+pre code,
+code {
+font-family:"Lucida Console",Monaco,monospace;
+font-size:85%;
+background-color:#eee;
+display:inline-block;
+padding:0.1em 0.25em;
 }
 
 /* Structure/Layout */
