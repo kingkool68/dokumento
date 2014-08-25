@@ -47,13 +47,19 @@ add_action('admin_init', 'dokumento_remove_post_metaboxes');
 
 //After editing a post or a term, we should redirect you to the frontend to see your changes.
 function dokumento_edit_post_redirect($post_id, $post) {
-	$permalink = get_permalink( $post_id );
+	$rev = array_shift( get_revisions( $post_id ) );
+	if ( $parent_id = wp_is_post_revision( $rev->ID) ) {
+		$permalink = get_permalink( $parent_id );
+	} else {
+		$permalink = get_permalink( $post_id );
+	}
+	
 	if( $permalink ) {
 		wp_redirect( $permalink );
 		die();
 	}
 }
-add_action('edit_post', 'dokumento_edit_post_redirect', 99, 2);
+add_action('wp_insert_post', 'dokumento_edit_post_redirect', 99, 2);
 
 function dokumento_edited_term_redirect($term_id, $tt_id, $taxonomy) {
 	$permalink = get_term_link( $term_id, $taxonomy );
@@ -132,18 +138,22 @@ function dokumento_human_time_diff( $levels = 2, $from, $to = false ) {
 		
 		if ($diff/$block['amount'] >= 1) {
 			$amount = floor($diff/$block['amount']);
-			$plural='';
+			$plural = '';
 			if ($amount > 1) {
-				$plural='s';
+				$plural = 's';
 			} 
 			
-			$result[] = $amount.' '.$block['name'].$plural;
-			$diff -= $amount*$block['amount'];
+			$result[] = $amount . ' ' . $block['name'] . $plural;
+			$diff -= $amount * $block['amount'];
 			$current_level++;
 		}
 	}
 	
-	return implode(' ',$result);
+	if( empty($result) ) {
+		$result[] = '0 seconds';
+	}
+	
+	return implode(' ', $result);
 }
 
 function dokumento_attachment_link( $link, $post_id ) {
