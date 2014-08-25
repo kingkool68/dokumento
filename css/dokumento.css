@@ -59,7 +59,8 @@ margin-top:1.2em;
 }
 p,
 ul,
-ol {
+ol,
+pre {
 margin-bottom:1em;
 }
 ul,
@@ -129,13 +130,24 @@ margin:0 0.1em;
 padding:0.1em 0.6em;
 text-shadow:0 0.1em 0 #fff;
 }
-pre code,
+pre {
+padding:0.5em 1.2em;
+}
+code {
+display:inline-block;
+font-size:85%;
+padding:0.1em 0.25em;
+}
+pre,
 code {
 font-family:"Lucida Console",Monaco,monospace;
-font-size:85%;
-background-color:#eee;
-display:inline-block;
-padding:0.1em 0.25em;
+background-color:#f3f3f3;
+}
+q:before {
+content:'\201C';
+}
+q:after {
+content:'\201D';
 }
 
 /* Structure/Layout */
@@ -404,7 +416,8 @@ display:block;
 	font-size:3em;
 	}
 	p,
-	li  {
+	li,
+	pre  {
 	font-size:2em;
 	}
 	header {
@@ -471,7 +484,8 @@ display:block;
 	font-size:1.92em;
 	}
 	p,
-	li  {
+	li,
+	pre  {
 	font-size:1.4em;
 	font-weight:100;
 	line-height:1.6;
