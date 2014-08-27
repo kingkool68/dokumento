@@ -19,6 +19,18 @@
 		<h2>Nav</h2>
 		<?php wp_nav_menu( array( 'theme_location' => 'main-menu' ) ); ?>
 	</section>
+	<section>
+		<h2></h2>
+		<ul>
+			<li>
+			<?php if( is_user_logged_in() ) { ?>
+				<a href="<?php echo wp_logout_url( get_site_url() ); ?>">Log Out</a>
+			<?php } else { ?>
+				
+		<?php }
+		?>
+		</li>
+	</section>
 </nav>
 
 <script>
