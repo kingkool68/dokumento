@@ -68,6 +68,26 @@ function dokumento_edit_post_redirect($post_id, $post) {
 }
 add_action('wp_insert_post', 'dokumento_edit_post_redirect', 99, 2);
 
+function dokumento_edit_attachment_redirect($attachment_id) {
+	$permalink = get_permalink( $attachment_id );
+
+	//Prevent infinite loop...
+	remove_action('edit_attachment', 'dokumento_edit_attachment_redirect', 99);
+	
+	$post = array(
+		'ID' => $attachment_id,
+		'post_modified' => current_time( 'mysql' ),
+		'post_modified_gmt' => current_time( 'mysql', 1)
+	);
+	wp_update_post( $post );
+	
+	if( $permalink && $_POST['save'] == 'Update' ) {
+		wp_redirect( $permalink );
+		die();
+	}
+}
+add_action('edit_attachment', 'dokumento_edit_attachment_redirect', 99 );
+
 function dokumento_edited_term_redirect($term_id, $tt_id, $taxonomy) {
 	$permalink = get_term_link( $term_id, $taxonomy );
 	if( $permalink ) {
