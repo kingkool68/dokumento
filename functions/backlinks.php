@@ -1,6 +1,6 @@
 <?php
 function dokumento_backlinks_init() {
-	add_rewrite_endpoint( 'backlinks', EP_PERMALINK );
+	add_rewrite_endpoint( 'backlinks', EP_PERMALINK | EP_ATTACHMENT );
 }
 add_action('init', 'dokumento_backlinks_init');
 
