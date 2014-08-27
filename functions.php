@@ -23,6 +23,9 @@ function replace_pluses_with_spaces($s) {
 }
 add_filter('get_search_query', 'replace_pluses_with_spaces');
 
+//No admin bar because I'm the devil
+add_filter('show_admin_bar', '__return_false');
+
 //Remove features from the post post type.
 function dokumento_init() {
 	$features_to_be_removed = array('thumbnail', 'trackbacks', 'comments', 'custom-fields');
