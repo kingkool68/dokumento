@@ -47,6 +47,10 @@ add_action('admin_init', 'dokumento_remove_post_metaboxes');
 
 //After editing a post or a term, we should redirect you to the frontend to see your changes.
 function dokumento_edit_post_redirect($post_id, $post) {
+	if( !isset($_POST['post_status'] ) || !$_POST['post_status'] ) {
+		return;
+	}
+	
 	$rev = array_shift( get_revisions( $post_id ) );
 	if ( $parent_id = wp_is_post_revision( $rev->ID) ) {
 		$permalink = get_permalink( $parent_id );
@@ -54,7 +58,7 @@ function dokumento_edit_post_redirect($post_id, $post) {
 		$permalink = get_permalink( $post_id );
 	}
 	
-	if( $permalink ) {
+	if( $permalink && $_POST['post_status'] == 'publish' ) {
 		wp_redirect( $permalink );
 		die();
 	}
