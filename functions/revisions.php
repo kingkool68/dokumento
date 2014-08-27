@@ -33,7 +33,7 @@ function dokumento_revisions_template_include( $template ) {
 add_filter( 'template_include', 'dokumento_revisions_template_include', 99 );
 
 function dokumento_revisions_admin_enqueue_scripts($hook) {
-	if( $hook != 'post.php' ) {
+	if( $hook != 'post.php' || get_post_type() == 'attachment' ) {
         return;
 	}
     wp_enqueue_script( 'dokumento-revisions', get_template_directory_uri() . '/js/dokumento-revisions.js', array('jquery') );
@@ -43,7 +43,7 @@ add_action( 'admin_enqueue_scripts', 'dokumento_revisions_admin_enqueue_scripts'
 
 function dokumento_edit_form_top() {
 	$screen = get_current_screen();
-	if( $screen->base != 'post' ) {
+	if( $screen->base != 'post' || get_post_type() == 'attachment' ) {
 		return;
 	}
 	?>
