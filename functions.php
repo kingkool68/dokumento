@@ -167,6 +167,24 @@ function dokumento_attachment_link( $link, $post_id ) {
 }
 add_filter( 'attachment_link', 'dokumento_attachment_link', 2, 10 );
 
+function dokumento_get_edit_post_link( $id = 0 ) {
+	if ( ! $post = get_post( $id ) ) {
+		return;
+	}
+	
+	$action = '&action=edit';
+	if ( $post->post_type === 'revision' ) {
+		$action = '';
+	}
+	
+	$post_type_object = get_post_type_object( $post->post_type );
+	if ( !$post_type_object ) {
+		return;
+	}
+	
+	return admin_url( sprintf( $post_type_object->_edit_link . $action, $post->ID ) );
+}
+
 //Include functions
 $dokumento_functions_path = TEMPLATEPATH . '/functions';
 include  $dokumento_functions_path . '/css-js.php';
