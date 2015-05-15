@@ -48,7 +48,16 @@ get_header();
 	
 	<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 		<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-	<?php endwhile; else: ?>
+	<?php endwhile; ?>
+	
+	<p class="pagination">
+	<?php
+	$args = array();
+	echo paginate_links( $args );
+	?>
+	</p>
+	
+	<?php else: ?>
 	
 	<?php endif; ?>
 </div>
