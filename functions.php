@@ -208,6 +208,40 @@ function dokumento_get_edit_post_link( $id = 0 ) {
 	return admin_url( sprintf( $post_type_object->_edit_link . $action, $post->ID ) );
 }
 
+
+/* Show all articles */
+function dokumento_show_all_template_redirect( $template ) {
+	global $wp_query;
+	
+	if( !isset( $wp_query->query['name'] ) || $wp_query->query['name'] != 'all' ) {
+		return $template;
+	}
+	
+	$wp_query->is_404 = false;
+	$wp_query->is_archive = true;
+	$wp_query->is_single = false;
+	$wp_query->is_page = false;
+	
+	return $template;
+}
+add_filter('template_redirect', 'dokumento_show_all_template_redirect' );
+
+function dokumento_show_all_pre_get_posts( $q ) {
+	if( !isset($q->query['name']) || $q->query['name'] != 'all' || !$q->is_main_query() ) {
+		return;
+	}
+	$q->set( 'is_404', false );
+	$q->set( 'is_single', false );
+	$q->set( 'is_page', false );
+	$q->set( 'is_archive', true );
+	$q->set( 'posts_per_page', -1 );
+	$q->set( 'post_type', 'post' );
+	$q->set( 'name', '' );
+	$q->set( 'post_status', 'publish' );
+	$q->set( 'order', 'ASC' );
+}
+add_action( 'pre_get_posts', 'dokumento_show_all_pre_get_posts' );
+
 //Include functions
 $dokumento_functions_path = TEMPLATEPATH . '/functions';
 include  $dokumento_functions_path . '/css-js.php';
